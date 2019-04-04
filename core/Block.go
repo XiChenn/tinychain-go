@@ -7,34 +7,28 @@ import (
 )
 
 type Block struct {
-	Index int64
 	Timestamp int64
 	PrevBlockHash string
 	Hash string
 	Data string
 }
 
-func calculateHash(block *Block) string {
-	blockData := string(block.Index) + string(block.Timestamp) + block.PrevBlockHash + block.Data
-	hashInBytes := sha256.Sum256([]byte(blockData))
-	return hex.EncodeToString(hashInBytes[:])
-}
-
-func GenerateNewBlock(preBlock *Block, data string) Block {
-	newBlock := Block{
-		Index:         preBlock.Index + 1,
+func NewBlock(data, prevHash string) *Block {
+	block := &Block{
 		Timestamp:     time.Now().Unix(),
-		PrevBlockHash: preBlock.Hash,
+		PrevBlockHash: prevHash,
 		Data:          data,
 	}
-	newBlock.Hash = calculateHash(&newBlock)
-	return newBlock
+	block.SetHash()
+	return block
 }
 
-func GenerateGenesisBlock() Block {
-	 preBlock := Block{
-		 Index:         -1,
-		 Hash:          "",
-	 }
-	 return GenerateNewBlock(&preBlock, "Genesis Block")
+func (block *Block) SetHash() {
+	headers := string(block.Timestamp) + block.PrevBlockHash + block.Data
+	hashInBytes := sha256.Sum256([]byte(headers))
+	block.Hash = hex.EncodeToString(hashInBytes[:])
+}
+
+func NewGenesisBlock() *Block {
+	 return NewBlock("Genesis Block", "")
 }

@@ -25,7 +25,7 @@ func blockchainGetHandler(w http.ResponseWriter, r *http.Request) {
 
 func blockchainWriteHandler(w http.ResponseWriter, r *http.Request) {
 	blockData := r.URL.Query().Get("data")
-	blockchain.SendData(blockData)
+	blockchain.AddBlock(blockData)
 	blockchainGetHandler(w, r)
 }
 
