@@ -5,9 +5,7 @@ type BlockChain struct {
 }
 
 func NewBlockchain() *BlockChain {
-	return &BlockChain{
-		Blocks: []*Block{NewGenesisBlock()},
-	}
+	return &BlockChain{[]*Block{NewGenesisBlock()}}
 }
 
 func (bc *BlockChain) AddBlock(data string) {

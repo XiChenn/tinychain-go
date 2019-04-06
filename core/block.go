@@ -1,8 +1,6 @@
 package core
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
 	"time"
 )
 
@@ -11,6 +9,7 @@ type Block struct {
 	ParentHash string
 	Hash       string
 	Data       string
+	Nonce      int64
 }
 
 func NewGenesisBlock() *Block {
@@ -21,14 +20,10 @@ func NewBlock(data, parentHash string) *Block {
 	block := &Block{
 		Timestamp:  time.Now().Unix(),
 		ParentHash: parentHash,
+		Hash:       "",
 		Data:       data,
+		Nonce:      0,
 	}
-	block.SetHash()
+	block.Nonce, block.Hash = NewProofOfWork(block).Run()
 	return block
-}
-
-func (block *Block) SetHash() {
-	headers := string(block.Timestamp) + block.ParentHash + block.Data
-	hashInBytes := sha256.Sum256([]byte(headers))
-	block.Hash = hex.EncodeToString(hashInBytes[:])
 }

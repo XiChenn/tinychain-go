@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"tinychian-go/core"
 )
 
@@ -16,6 +17,10 @@ func main() {
 		fmt.Printf("Current Hash: %s\n", block.Hash)
 		fmt.Printf("Data: %s\n", block.Data)
 		fmt.Printf("Timestamp: %d\n", block.Timestamp)
+
+		pow := core.NewProofOfWork(block)
+		fmt.Printf("PoW: %s\n", strconv.FormatBool(pow.Validate()))
+
 		fmt.Println()
 	}
 }
