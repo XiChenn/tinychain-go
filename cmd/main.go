@@ -12,8 +12,8 @@ func main() {
 
 	for index, block := range bc.Blocks {
 		fmt.Printf("Index: %d\n", index)
-		fmt.Printf("Prev.Hash: %s\n", block.PrevBlockHash)
-		fmt.Printf("Curr.Hash: %s\n", block.Hash)
+		fmt.Printf("Parent Hash: %s\n", block.ParentHash)
+		fmt.Printf("Current Hash: %s\n", block.Hash)
 		fmt.Printf("Data: %s\n", block.Data)
 		fmt.Printf("Timestamp: %d\n", block.Timestamp)
 		fmt.Println()
