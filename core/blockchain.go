@@ -10,6 +10,6 @@ func NewBlockchain() *BlockChain {
 
 func (bc *BlockChain) AddBlock(data string) {
 	parentBlock := bc.Blocks[len(bc.Blocks) - 1]
-	newBlock := NewBlock(data, parentBlock.Hash)
+	newBlock := NewBlock([]byte(data), parentBlock.Hash)
 	bc.Blocks = append(bc.Blocks, newBlock)
 }

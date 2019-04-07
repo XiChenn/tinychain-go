@@ -6,21 +6,21 @@ import (
 
 type Block struct {
 	Timestamp  int64
-	ParentHash string
-	Hash       string
-	Data       string
+	ParentHash []byte
+	Hash       []byte
+	Data       []byte
 	Nonce      int64
 }
 
 func NewGenesisBlock() *Block {
-	return NewBlock("Genesis Block", "")
+	return NewBlock([]byte("Genesis Block"), []byte{})
 }
 
-func NewBlock(data, parentHash string) *Block {
+func NewBlock(data []byte, parentHash []byte) *Block {
 	block := &Block{
 		Timestamp:  time.Now().Unix(),
 		ParentHash: parentHash,
-		Hash:       "",
+		Hash:       []byte{},
 		Data:       data,
 		Nonce:      0,
 	}
