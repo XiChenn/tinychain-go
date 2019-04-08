@@ -19,7 +19,20 @@ func main() {
 }
 
 func getHandler(w http.ResponseWriter, r *http.Request) {
-	bytes, err := json.Marshal(blockchain)
+	bcIter := blockchain.Iterator()
+
+	blocks := make([]*core.Block, 0)
+
+	for {
+		block := bcIter.Next()
+		blocks = append(blocks, block)
+
+		if len(block.ParentHash) == 0 {
+			break
+		}
+	}
+
+	bytes, err := json.Marshal(blocks)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

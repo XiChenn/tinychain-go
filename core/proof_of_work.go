@@ -10,7 +10,7 @@ import (
 
 const (
 	MaxNonce  = math.MaxInt64
-	TargetBit = 24 // number of bits with zeros
+	TargetBit = 20 // number of bits with zeros
 )
 
 type ProofOfWork struct {
